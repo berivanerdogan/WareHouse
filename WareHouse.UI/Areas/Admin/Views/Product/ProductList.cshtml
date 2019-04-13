@@ -33,7 +33,7 @@
                                 <th> Product Description</th>
                                 <th>Unit Price</th>
                                 <th>Unit In Stock</th>
-                                @*<th>Category Name</th>*@
+                                <th>Category Name</th>
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
@@ -45,7 +45,9 @@
                                 <td>@item.ProductName</td>
                                 <td>@item.ProductDescription</td>
                                 <td>@item.UnitPrice</td>
-                                <td>@item.UnitsInStock</td>                        
+                                <td>@item.UnitsInStock</td>
+                                <td>@item.CategoryName</td>
+                                @*<td>@item.</td>*@
                                 <td><a href="/Admin/Product/ProductUpdate/@item.ID" type="button" class="btn btn-block btn-warning">Update</a></td>
                                 <td><a href="/Admin/Product/ProductDelete/@item.ID" type="button" class="btn btn-block btn-danger">Delete</a></td>
                             </tr>

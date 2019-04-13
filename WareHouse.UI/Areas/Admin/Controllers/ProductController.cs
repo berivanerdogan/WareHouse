@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WareHouse.Model.Entity;
 using WareHouse.UI.Areas.Admin.Models.DTO;
+using WareHouse.UI.Areas.Admin.Models.VM;
 
 namespace WareHouse.UI.Areas.Admin.Controllers
 {
@@ -13,8 +14,8 @@ namespace WareHouse.UI.Areas.Admin.Controllers
        
         public ActionResult ProductAdd()
         {
-            //List<Category> model = db.Categories.Where(x => x.Status == WareHouse.Model.Enum.Status.Active || x.Status == WareHouse.Model.Enum.Status.Updated).ToList();
-            return View();
+            List<Category> model = db.Categories.Where(x => x.Status == WareHouse.Model.Enum.Status.Active || x.Status == WareHouse.Model.Enum.Status.Updated).OrderBy(x=>x.AddDate).ToList();
+            return View(model);
         }
 
         [HttpPost]
@@ -22,23 +23,22 @@ namespace WareHouse.UI.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                Product product = new Product();
-                product.ID=model.ID ;
+                Product product = new Product();               
                 product.ProductName = model.ProductName;
                 product.ProductDescription = model.ProductDescription;
                 product.UnitPrice = model.UnitPrice;
                 product.UnitsInStock = model.UnitsInStock;
-                //product.CategoryID = model.CategoryID;
+                product.CategoryID = model.CategoryID;
                 db.Products.Add(product);
                 db.SaveChanges();
                 ViewBag.ProcessCondition = 1;
-                return View();
+                return Redirect("/Admin/Product/ProductList");
 
             }
             else
             {
                 ViewBag.ProcessCondition = 2;
-                return View();
+                return Redirect("/Admin/Product/ProductList");
 
             }
         }
@@ -50,8 +50,10 @@ namespace WareHouse.UI.Areas.Admin.Controllers
                 ID = x.ID,
                 ProductName = x.ProductName,
                 ProductDescription = x.ProductDescription,
-                UnitPrice=x.UnitPrice,
-                UnitsInStock=x.UnitsInStock,
+                UnitPrice = x.UnitPrice,
+                UnitsInStock = x.UnitsInStock,
+                CategoryName = x.Category.CategoryName,
+                CategoryID=x.CategoryID
             }).ToList();
 
             return View(model);
@@ -59,15 +61,18 @@ namespace WareHouse.UI.Areas.Admin.Controllers
 
         public ActionResult ProductUpdate(int id)
         {
-            Product product = db.Products.FirstOrDefault(x => x.ID == id);
-            ProductDTO model = new ProductDTO();
-            model.ID = product.ID;
-            model.ProductName = product.ProductName;
-            model.ProductDescription = product.ProductDescription;
-            model.UnitPrice = product.UnitPrice;
-            model.UnitsInStock = product.UnitsInStock;
-            
+            ProductVM model = new ProductVM();
+            Product product = db.Products.FirstOrDefault(x => x.ID == id);  
+            model.product.ID = product.ID;
+            model.product.ProductName = product.ProductName;
+            model.product.ProductDescription = product.ProductDescription;
+            model.product.UnitPrice = product.UnitPrice;
+            model.product.UnitsInStock = product.UnitsInStock;
+            //model.product.CategoryID = product.CategoryID;
+            //model.product.CategoryName = product.Category.CategoryName;
 
+            List<Category> categorymodel=db.Categories.Where(x => x.Status == Model.Enum.Status.Active || x.Status == Model.Enum.Status.Updated).ToList();
+            model.Categories = categorymodel;
             return View(model);
         }
 
@@ -77,19 +82,22 @@ namespace WareHouse.UI.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 Product product = db.Products.FirstOrDefault(x => x.ID == model.ID);
-                product.ID = model.ID;
-                product.ProductName = model.ProductDescription;
+                //product.ID = model.ID;
+                product.ProductName = model.ProductName;
+                product.ProductDescription = model.ProductDescription;
                 product.UnitPrice = model.UnitPrice;
                 product.UnitsInStock = model.UnitsInStock;
+                product.CategoryID = model.CategoryID;
+                //product.Category.CategoryName = model.CategoryName;
                 product.UpdateDate = DateTime.Now;
                 product.Status = WareHouse.Model.Enum.Status.Updated;
-                db.Products.Add(product);
+            
                 db.SaveChanges();
                 return Redirect("/Admin/Product/ProductList");
             }
             else
             {
-                return Redirect("/Admin/Product/ProductList");
+                return View();
             }
 
         }

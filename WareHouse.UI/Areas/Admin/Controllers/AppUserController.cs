@@ -28,7 +28,7 @@ namespace WareHouse.UI.Areas.Admin.Controllers
                 appUser.Password = model.Password;
                 appUser.Role = model.Role;
                 appUser.Gender = model.Gender;
-                db.AppUsers.Add(appUser);
+                db.AppUsers.Add(appUser);   
                 db.SaveChanges();
 
                 return View();

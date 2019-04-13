@@ -131,6 +131,7 @@
     <Compile Include="Areas\Admin\Models\DTO\ProductDTO.cs" />
     <Compile Include="Areas\Admin\Models\Message\TransactionMessage.cs" />
     <Compile Include="Areas\Admin\Models\VM\LoginVM.cs" />
+    <Compile Include="Areas\Admin\Models\VM\ProductVM.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -163,11 +164,9 @@
     <Content Include="Areas\Admin\Views\Account\UserLogin.cshtml" />
     <Content Include="Areas\Admin\Views\AppUser\AppUserList.cshtml" />
     <Content Include="Areas\Admin\Views\AppUser\AppUserUpdate.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\ProductAdd.cshtml" />
     <Content Include="Areas\Admin\Views\Product\ProductList.cshtml" />
     <Content Include="Areas\Admin\Views\Product\ProductUpdate.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Partial\SectionForm.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Partial\ProductForm.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\ProductAdd.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
