@@ -35,6 +35,10 @@
                             <input type="text" name="UserName" value="@Model.UserName" class="form-control" placeholder="User Name">
                         </div>
                         <div class="form-group">
+                            <label for="email">Email </label>
+                            <input type="email" name="Email" value="@Model.Email" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-group">
                             <label for="text">Password</label>
                             <input type="text" name="Password" value="@Model.Password" class="form-control" placeholder="Password">
                         </div>
@@ -49,7 +53,7 @@
                         </div>
                         <div class="form-group">
                             <label for="Gender">Gender</label>
-                            <select name="Role"  value="@Model.Gender" class="form-control">
+                            <select name="Gender" value="@Model.Gender" class="form-control">
                                 @foreach (var item in Enum.GetNames(typeof(WareHouse.Model.Enum.Gender)))
                                 {
                                     <option value="@item">@item</option>
